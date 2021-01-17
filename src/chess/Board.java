@@ -16,16 +16,11 @@ public class Board extends JFrame {
         Board.WIDTH = WIDTH;
         Board.HEIGHT = HEIGHT;
 
-        Dimension size = new Dimension(WIDTH, HEIGHT);
-        Checker checker = new Checker();
-
-        setContentPane(checker);
-        checker.setSize(size);
+        setBackground(Color.black);
         setResizable(false);
-        //setSize(size);
-        setPreferredSize(size);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        add(new Checker());
         pack();
         setVisible(true);
     }
