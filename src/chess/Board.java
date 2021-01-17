@@ -30,7 +30,7 @@ public class Board extends JFrame {
 
     static class Checker extends JPanel {
 
-        private final Dimension preferredSize = new Dimension(500, 500);
+        private final Dimension preferredSize = new Dimension(Board.WIDTH, Board.HEIGHT);
 
         private void drawChessSquare(int w, int h, int x, int y, Graphics g, Color color) {
             g.setColor(color);
