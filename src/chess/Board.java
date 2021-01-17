@@ -48,7 +48,7 @@ public class Board extends JFrame {
                 int y = 0;
 
                 if (i < 8) {
-                    y = 0;
+                    assert true;
                 } else if (i < 8 * 2) {
                     y = Board.HEIGHT / 8;
                 } else if (i < 8 * 3) {
@@ -66,7 +66,7 @@ public class Board extends JFrame {
                 }
 
                 if (i % 8 == 0) {
-                    x = 0;
+                    assert true;
                 } else if (i == 1 || (i - 1) % 8 == 0) {
                     x = Board.WIDTH / 8;
                 } else if (i == 2 || (i - 2) % 8 == 0) {
