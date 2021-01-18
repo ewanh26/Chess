@@ -23,6 +23,7 @@ public class Board extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        contentPane.setBackground(Color.ORANGE.darker().darker());
         contentPane.add(new Checker());
         pack();
         setVisible(true);
