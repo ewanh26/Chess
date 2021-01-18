@@ -2,6 +2,7 @@ package chess;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,12 +18,18 @@ public class Board extends JFrame {
         Board.HEIGHT = HEIGHT;
 
         setBackground(Color.black);
+        JPanel contentPane = new JPanel();
+        setContentPane(contentPane);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(new Checker());
+        contentPane.add(new Checker());
         pack();
         setVisible(true);
+    }
+
+    public void update() {
+        repaint();
     }
 
     static class Checker extends JPanel {
