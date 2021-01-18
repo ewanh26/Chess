@@ -6,6 +6,7 @@ public abstract class ChessPiece {
 
     protected int x, y;
     protected PieceType type;
+    protected Image img;
 
     public ChessPiece(int x, int y, PieceType type) {
         this.x = x;
