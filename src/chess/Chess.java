@@ -1,14 +1,11 @@
 package chess;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
-public class Board extends JFrame {
+public class Chess extends JFrame {
 
     private JLabel[] boardLabels;
     private int gridW = 8;
@@ -17,9 +14,9 @@ public class Board extends JFrame {
 
     private Color hoverColor = Color.decode("#DDCCFF");
     private Color beforeHoverColor;
-    private Color borderColor = Color.WHITE;
+    private Color borderColor = Color.BLACK;
 
-    public Board(String title) {
+    public Chess(String title) {
         super(title);
     }
 
@@ -27,18 +24,19 @@ public class Board extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Board("Chess").startApp(args);
+                new Chess("Chess").startApp(args);
             }
         });
     }
 
     private void startApp(String[] args) {
         initialize();
-        addPieces();
+        addPiece(new Pawn("G2", PieceType.Pawn, Color.BLACK), "G2");
     }
 
     private void initialize() {
         setAlwaysOnTop(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(gridH, gridW));
         boardLabels = new JLabel[gridW * gridH];
@@ -51,9 +49,9 @@ public class Board extends JFrame {
 
         for (int i = 0; i < boardLabels.length; i++) {
             if (i%2==0) {
-                squareColor = !checker ? Color.BLACK : Color.RED.darker();
+                squareColor = !checker ? Color.WHITE : Color.RED.darker();
             } else {
-                squareColor = !checker ? Color.RED.darker() : Color.BLACK;
+                squareColor = !checker ? Color.RED.darker() : Color.WHITE;
             }
 
             columnCounter++;
@@ -77,13 +75,13 @@ public class Board extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void addPieces() {
-        for (JLabel label : boardLabels) {
-            switch (label.getName()) {
-                case "G1" -> {
-                    Pawn pawn = new Pawn("G1", PieceType.Pawn);
+    private void addPiece(ChessPiece piece, String pos) {
+        for (JLabel square : boardLabels) {
+            if (square.getName().equals(pos)) {
+                if (piece.type == PieceType.Pawn) {
+                    Pawn pawn = (Pawn) piece;
                     ImageIcon icon = new ImageIcon(pawn.img);
-                    label.setIcon(icon);
+                    square.setIcon(icon);
                 }
             }
         }
@@ -100,13 +98,13 @@ public class Board extends JFrame {
         public void mouseEntered(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
             beforeHoverColor = label.getBackground();
-            label.setBorder(BorderFactory.createLineBorder(borderColor, 1));
+            label.setBorder(BorderFactory.createLineBorder(borderColor, 3));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
-            label.setBorder(null);
+            label.setBorder(BorderFactory.createLineBorder(borderColor));
         }
     }
 
