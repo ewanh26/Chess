@@ -8,22 +8,19 @@ import java.io.IOException;
 
 public class Pawn extends ChessPiece {
 
-    protected int x,y;
+    protected String pos;
     protected PieceType type;
     protected Image img = null;
     protected ImageObserver imageObserver;
 
-    public Pawn(int x, int y, PieceType type) {
-        super(x, y, type);
-    }
+    public Pawn(String pos, PieceType type) {
+        super(pos, type);
 
-    public void draw(Graphics g) {
         try {
             img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\Pawn.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        g.drawImage(img, x, y, imageObserver);
     }
+
 }

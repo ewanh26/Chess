@@ -4,16 +4,13 @@ import java.awt.*;
 
 public abstract class ChessPiece {
 
-    protected int x, y;
+    protected String pos;
     protected PieceType type;
     protected Image img;
 
-    public ChessPiece(int x, int y, PieceType type) {
-        this.x = x;
-        this.y = y;
+    public ChessPiece(String pos, PieceType type) {
+        this.pos = pos;
         this.type = type;
     }
-
-    abstract void draw(Graphics g);
 
 }

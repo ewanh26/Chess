@@ -6,10 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class Board extends JFrame {
 
@@ -22,17 +19,22 @@ public class Board extends JFrame {
     private Color beforeHoverColor;
     private Color borderColor = Color.WHITE;
 
+    public Board(String title) {
+        super(title);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Board().startApp(args);
+                new Board("Chess").startApp(args);
             }
         });
     }
 
     private void startApp(String[] args) {
         initialize();
+        addPieces();
     }
 
     private void initialize() {
@@ -73,6 +75,18 @@ public class Board extends JFrame {
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
+    }
+
+    private void addPieces() {
+        for (JLabel label : boardLabels) {
+            switch (label.getName()) {
+                case "G1" -> {
+                    Pawn pawn = new Pawn("G1", PieceType.Pawn);
+                    ImageIcon icon = new ImageIcon(pawn.img);
+                    label.setIcon(icon);
+                }
+            }
+        }
     }
 
     private class MouseHandler extends MouseAdapter {
