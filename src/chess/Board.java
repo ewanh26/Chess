@@ -79,7 +79,7 @@ public class Board extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
-            System.out.println("Clicked" + label.getName());
+            System.out.println("Clicked: " + label.getName());
         }
 
         @Override
