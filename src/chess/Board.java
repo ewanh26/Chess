@@ -1,107 +1,99 @@
 package chess;
 
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class Board extends JFrame {
 
-    public static int WIDTH;
-    public static int HEIGHT;
+    private JLabel[] boardLabels;
+    private int gridW = 8;
+    private int gridH = 8;
+    private int squareSize = 64;
 
-    public Board(int WIDTH, int HEIGHT, String TITLE) {
-        super(TITLE);
+    private Color hoverColor = Color.decode("#DDCCFF");
+    private Color beforeHoverColor;
+    private Color borderColor = Color.WHITE;
 
-        Board.WIDTH = WIDTH;
-        Board.HEIGHT = HEIGHT;
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Board().startApp(args);
+            }
+        });
+    }
 
-        setBackground(Color.black);
-        JPanel contentPane = new JPanel();
-        setContentPane(contentPane);
-        setResizable(false);
+    private void startApp(String[] args) {
+        initialize();
+    }
+
+    private void initialize() {
+        setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        contentPane.setBackground(Color.ORANGE.darker().darker().darker().darker());
-        contentPane.add(new Checker());
-        pack();
-        setVisible(true);
-    }
+        getContentPane().setLayout(new GridLayout(gridH, gridW));
+        boardLabels = new JLabel[gridW * gridH];
+        MouseHandler mouseHandler = new MouseHandler();
 
-    public void update() {
-        repaint();
-    }
+        int labelASCII_StartLetter = 65;
+        boolean checker = false;
+        Color squareColor;
+        int columnCounter = 0;
 
-    static class Checker extends JPanel {
+        for (int i = 0; i < boardLabels.length; i++) {
+            if (i%2==0) {
+                squareColor = !checker ? Color.BLACK : Color.RED.darker();
+            } else {
+                squareColor = !checker ? Color.RED.darker() : Color.BLACK;
+            }
 
-        private final Dimension preferredSize = new Dimension(Board.WIDTH, Board.HEIGHT);
-
-        private void drawChessSquare(int w, int h, int x, int y, Graphics g, Color color) {
-            g.setColor(color);
-            g.fillRect(x, y, w, h);
-        }
-
-        @Override
-        public Dimension getPreferredSize() {
-            return preferredSize;
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            boolean black = true;
-            for (int i = 0; i < 64; i++) {
-                int x = 0;
-                int y = 0;
-
-                if (i < 8) {
-                    assert true;
-                } else if (i < 8 * 2) {
-                    y = Board.HEIGHT / 8;
-                } else if (i < 8 * 3) {
-                    y = (Board.HEIGHT / 8) * 2;
-                } else if (i < 8 * 4) {
-                    y = (Board.HEIGHT / 8) * 3;
-                } else if (i < 8 * 5) {
-                    y = (Board.HEIGHT / 8) * 4;
-                } else if (i < 8 * 6) {
-                    y = (Board.HEIGHT / 8) * 5;
-                } else if (i < 8 * 7) {
-                    y = (Board.HEIGHT / 8) * 6;
-                } else {
-                    y = (Board.HEIGHT / 8) * 7;
-                }
-
-                if (i % 8 == 0) {
-                    assert true;
-                } else if (i == 1 || (i - 1) % 8 == 0) {
-                    x = Board.WIDTH / 8;
-                } else if (i == 2 || (i - 2) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 2;
-                } else if (i == 3 || (i - 3) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 3;
-                } else if (i == 4 || (i - 4) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 4;
-                } else if (i == 5 || (i - 5) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 5;
-                } else if (i == 6 || (i - 6) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 6;
-                } else if (i == 7 || (i - 7) % 8 == 0) {
-                    x = (Board.WIDTH / 8) * 7;
-                }
-
-                if (black) {
-                    if (!((i-7) % 8 == 0)) black = !black;
-                    drawChessSquare(Board.WIDTH / 8, Board.HEIGHT / 8, x, y, g, Color.black);
-                } else {
-                    if (!((i-7) % 8 == 0)) black = !black;
-                    drawChessSquare(Board.WIDTH / 8, Board.HEIGHT / 8, x, y, g, Color.orange);
-                }
+            columnCounter++;
+            boardLabels[i] = new JLabel();
+            boardLabels[i].setName(Character.toString((char)labelASCII_StartLetter) + String.valueOf(columnCounter));
+            boardLabels[i].setOpaque(true);
+            boardLabels[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            boardLabels[i].setBackground(squareColor);
+            boardLabels[i].setPreferredSize(new Dimension(squareSize, squareSize));
+            boardLabels[i].addMouseListener(mouseHandler);
+            getContentPane().add(boardLabels[i]);
+            if (columnCounter == gridW) {
+                checker = !checker;
+                labelASCII_StartLetter++;
+                columnCounter = 0;
             }
         }
 
+        pack();
+        setVisible(true);
+        setLocationRelativeTo(null);
     }
+
+    private class MouseHandler extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            JLabel label = (JLabel) e.getSource();
+            System.out.println("Clicked" + label.getName());
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            JLabel label = (JLabel) e.getSource();
+            beforeHoverColor = label.getBackground();
+            label.setBorder(BorderFactory.createLineBorder(borderColor, 1));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            JLabel label = (JLabel) e.getSource();
+            label.setBorder(null);
+        }
+    }
+
 }
