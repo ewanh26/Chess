@@ -16,8 +16,6 @@ public class Chess extends JFrame {
     private Color beforeHoverColor;
     private Color borderColor = Color.BLACK;
 
-    private PieceHandler handler;
-
     public Chess(String title) {
         super(title);
     }
@@ -35,15 +33,15 @@ public class Chess extends JFrame {
         initialize();
 
         for (int i = 1; i <= 8; i++) {
-            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE, handler), "G" + Integer.toString(i));
-            addPiece(new Pawn("B" + Integer.toString(i), PieceType.Pawn, Color.BLACK, handler), "B" + Integer.toString(i));
+            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE));
+            addPiece(new Pawn("B" + Integer.toString(i), PieceType.Pawn, Color.BLACK));
             if (i == 1 || i == 8) {
-                addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE, handler), "H" + Integer.toString(i));
-                addPiece(new Rook("A" + Integer.toString(i), PieceType.Rook, Color.BLACK, handler), "A" + Integer.toString(i));
+                addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE));
+                addPiece(new Rook("A" + Integer.toString(i), PieceType.Rook, Color.BLACK));
             }
             if (i == 2 || i == 7) {
-                addPiece(new Knight("H" + Integer.toString(i), PieceType.Knight, Color.WHITE, handler), "H" + Integer.toString(i));
-                addPiece(new Knight("A" + Integer.toString(i), PieceType.Knight, Color.BLACK, handler), "A" + Integer.toString(i));
+                addPiece(new Knight("H" + Integer.toString(i), PieceType.Knight, Color.WHITE));
+                addPiece(new Knight("A" + Integer.toString(i), PieceType.Knight, Color.BLACK));
             }
         }
     }
@@ -89,9 +87,9 @@ public class Chess extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void addPiece(ChessPiece piece, String pos) {
+    private <Piece extends ChessPiece> void addPiece(Piece piece) {
         for (JLabel square : boardLabels) {
-            if (square.getName().equals(pos)) {
+            if (piece.pos.equals(square.getName())) {
                 switch (piece.type) {
                     case Pawn -> {
                         Pawn p = (Pawn) piece;

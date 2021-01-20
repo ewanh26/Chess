@@ -11,20 +11,16 @@ public class Knight extends ChessPiece {
     protected String pos;
     protected PieceType type;
     protected Color color;
-    protected PieceHandler pieceHandler;
-    protected Image img = null;
-    protected ImageObserver imageObserver;
+    protected Image img;
 
-    public Knight(String pos, PieceType type, Color color, PieceHandler pieceHandler) {
-        super(pos, type, color, pieceHandler);
+    public Knight(String pos, PieceType type, Color color) {
+        super(pos, type, color);
 
         try {
             if (color == Color.BLACK) {
                 img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KnightBlack.png"));
-                pieceHandler.addPiece(pieceHandler.black_pieces, this);
             } else {
                 img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KnightWhite.png"));
-                pieceHandler.addPiece(pieceHandler.white_pieces, this);
             }
         } catch (IOException e) {
             e.printStackTrace();
