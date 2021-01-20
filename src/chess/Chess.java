@@ -34,9 +34,9 @@ public class Chess extends JFrame {
 
         for (int i = 1; i <= 8; i++) {
             addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE), "G" + Integer.toString(i));
-            /*if (i == 1 || i == 8) {
-                addPiece();
-            }*/
+            if (i == 1 || i == 8) {
+                addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE), "H" + Integer.toString(i));
+            }
         }
     }
 
@@ -84,10 +84,17 @@ public class Chess extends JFrame {
     private void addPiece(ChessPiece piece, String pos) {
         for (JLabel square : boardLabels) {
             if (square.getName().equals(pos)) {
-                if (piece.type == PieceType.Pawn) {
-                    Pawn pawn = (Pawn) piece;
-                    ImageIcon icon = new ImageIcon(pawn.img);
-                    square.setIcon(icon);
+                switch (piece.type) {
+                    case Pawn -> {
+                        Pawn pawn = (Pawn) piece;
+                        ImageIcon icon = new ImageIcon(pawn.img);
+                        square.setIcon(icon);
+                    }
+                    case Rook -> {
+                        Rook rook = (Rook) piece;
+                        ImageIcon icon = new ImageIcon(rook.img);
+                        square.setIcon(icon);
+                    }
                 }
             }
         }
