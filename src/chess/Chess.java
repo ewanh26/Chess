@@ -43,6 +43,10 @@ public class Chess extends JFrame {
                 addPiece(new Knight("H" + Integer.toString(i), PieceType.Knight, Color.WHITE));
                 addPiece(new Knight("A" + Integer.toString(i), PieceType.Knight, Color.BLACK));
             }
+            if (i == 3 || i == 6) {
+                addPiece(new Bishop("H" + Integer.toString(i), PieceType.Bishop, Color.WHITE));
+                addPiece(new Bishop("A" + Integer.toString(i), PieceType.Bishop, Color.BLACK));
+            }
         }
     }
 
@@ -103,6 +107,11 @@ public class Chess extends JFrame {
                     }
                     case Knight -> {
                         Knight p = (Knight) piece;
+                        ImageIcon icon = new ImageIcon(p.img);
+                        square.setIcon(icon);
+                    }
+                    case Bishop -> {
+                        Bishop p = (Bishop) piece;
                         ImageIcon icon = new ImageIcon(p.img);
                         square.setIcon(icon);
                     }
