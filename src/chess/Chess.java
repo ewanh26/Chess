@@ -31,7 +31,13 @@ public class Chess extends JFrame {
 
     private void startApp(String[] args) {
         initialize();
-        addPiece(new Pawn("G2", PieceType.Pawn, Color.BLACK), "G2");
+
+        for (int i = 1; i <= 8; i++) {
+            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE), "G" + Integer.toString(i));
+            /*if (i == 1 || i == 8) {
+                addPiece();
+            }*/
+        }
     }
 
     private void initialize() {
@@ -49,9 +55,9 @@ public class Chess extends JFrame {
 
         for (int i = 0; i < boardLabels.length; i++) {
             if (i%2==0) {
-                squareColor = !checker ? Color.WHITE : Color.RED.darker();
+                squareColor = !checker ? Color.decode("#e3c16f") : Color.decode("#b88b4a");
             } else {
-                squareColor = !checker ? Color.RED.darker() : Color.WHITE;
+                squareColor = !checker ? Color.decode("#b88b4a") : Color.decode("#e3c16f");
             }
 
             columnCounter++;
