@@ -51,6 +51,10 @@ public class Chess extends JFrame {
                 addPiece(new Queen("H" + Integer.toString(i), PieceType.Queen, Color.WHITE));
                 addPiece(new Queen("A" + Integer.toString(i), PieceType.Queen, Color.BLACK));
             }
+            if (i == 5) {
+                addPiece(new King("H" + Integer.toString(i), PieceType.King, Color.WHITE));
+                addPiece(new King("A" + Integer.toString(i), PieceType.King, Color.BLACK));
+            }
         }
     }
 
@@ -121,6 +125,11 @@ public class Chess extends JFrame {
                     }
                     case Queen -> {
                         Queen p = (Queen) piece;
+                        ImageIcon icon = new ImageIcon(p.img);
+                        square.setIcon(icon);
+                    }
+                    case King -> {
+                        King p = (King) piece;
                         ImageIcon icon = new ImageIcon(p.img);
                         square.setIcon(icon);
                     }
