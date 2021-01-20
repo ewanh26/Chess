@@ -16,6 +16,8 @@ public class Chess extends JFrame {
     private Color beforeHoverColor;
     private Color borderColor = Color.BLACK;
 
+    private PieceHandler handler;
+
     public Chess(String title) {
         super(title);
     }
@@ -33,9 +35,15 @@ public class Chess extends JFrame {
         initialize();
 
         for (int i = 1; i <= 8; i++) {
-            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE), "G" + Integer.toString(i));
+            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE, handler), "G" + Integer.toString(i));
+            addPiece(new Pawn("B" + Integer.toString(i), PieceType.Pawn, Color.BLACK, handler), "B" + Integer.toString(i));
             if (i == 1 || i == 8) {
-                addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE), "H" + Integer.toString(i));
+                addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE, handler), "H" + Integer.toString(i));
+                addPiece(new Rook("A" + Integer.toString(i), PieceType.Rook, Color.BLACK, handler), "A" + Integer.toString(i));
+            }
+            if (i == 2 || i == 7) {
+                addPiece(new Knight("H" + Integer.toString(i), PieceType.Knight, Color.WHITE, handler), "H" + Integer.toString(i));
+                addPiece(new Knight("A" + Integer.toString(i), PieceType.Knight, Color.BLACK, handler), "A" + Integer.toString(i));
             }
         }
     }
@@ -86,13 +94,18 @@ public class Chess extends JFrame {
             if (square.getName().equals(pos)) {
                 switch (piece.type) {
                     case Pawn -> {
-                        Pawn pawn = (Pawn) piece;
-                        ImageIcon icon = new ImageIcon(pawn.img);
+                        Pawn p = (Pawn) piece;
+                        ImageIcon icon = new ImageIcon(p.img);
                         square.setIcon(icon);
                     }
                     case Rook -> {
-                        Rook rook = (Rook) piece;
-                        ImageIcon icon = new ImageIcon(rook.img);
+                        Rook p = (Rook) piece;
+                        ImageIcon icon = new ImageIcon(p.img);
+                        square.setIcon(icon);
+                    }
+                    case Knight -> {
+                        Knight p = (Knight) piece;
+                        ImageIcon icon = new ImageIcon(p.img);
                         square.setIcon(icon);
                     }
                 }
