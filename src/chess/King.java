@@ -26,4 +26,8 @@ public class King extends ChessPiece {
         }
     }
 
+    String[] possibleMoves() {
+        return new String[0];
+    }
+
 }

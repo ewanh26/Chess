@@ -25,4 +25,8 @@ public class Bishop extends ChessPiece {
             e.printStackTrace();
         }
     }
+
+    public String[] possibleMoves() {
+        return new String[0];
+    }
 }

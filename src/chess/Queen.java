@@ -26,4 +26,8 @@ public class Queen extends ChessPiece {
         }
     }
 
+    String[] possibleMoves() {
+        return new String[0];
+    }
+
 }

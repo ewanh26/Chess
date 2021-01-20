@@ -26,4 +26,8 @@ public class Rook extends ChessPiece {
             e.printStackTrace();
         }
     }
+
+    String[] possibleMoves() {
+        return new String[0];
+    }
 }
