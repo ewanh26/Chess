@@ -27,8 +27,19 @@ public class Pawn extends ChessPiece {
         }
     }
 
-    String[] possibleMoves() {
-        return new String[0];
+    public String[] possibleMoves() {
+        char[] splitPos = { pos.charAt(0), pos.charAt(1) };
+        String[] possibleMoves;
+
+        if (color == Color.BLACK) {
+            int ASCII_CharPos = (int) splitPos[0];
+            possibleMoves = new String[]{ Character.toString((char) ASCII_CharPos + 1) + splitPos[1] };
+        } else {
+            int ASCII_CharPos = (int) splitPos[0];
+            possibleMoves = new String[]{ Character.toString((char) ASCII_CharPos - 1) + splitPos[1] };
+        }
+
+        return possibleMoves;
     }
 
 }

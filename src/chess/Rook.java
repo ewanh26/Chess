@@ -27,7 +27,7 @@ public class Rook extends ChessPiece {
         }
     }
 
-    String[] possibleMoves() {
+    public String[] possibleMoves() {
         return new String[0];
     }
 }

@@ -27,6 +27,7 @@ public class Bishop extends ChessPiece {
     }
 
     public String[] possibleMoves() {
+        //Diagonals
         return new String[0];
     }
 }

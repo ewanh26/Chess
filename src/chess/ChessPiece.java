@@ -15,6 +15,6 @@ public abstract class ChessPiece {
         this.color = color;
     }
 
-    abstract String[] possibleMoves();
+    abstract public String[] possibleMoves();
 
 }

@@ -27,7 +27,7 @@ public class Knight extends ChessPiece {
         }
     }
 
-    String[] possibleMoves() {
+    public String[] possibleMoves() {
         return new String[0];
     }
 
