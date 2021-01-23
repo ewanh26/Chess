@@ -86,9 +86,10 @@ public class Chess extends JFrame {
                 squareColor = !checker ? Color.decode("#b88b4a") : Color.decode("#e3c16f");
             }
 
-            columnCounter++;
             boardLabels[i] = new JLabel();
-            boardLabels[i].setName(Integer.toString(start) + String.valueOf(columnCounter-1));
+            boardLabels[i].setName(Integer.toString(start) + String.valueOf(columnCounter));
+            columnCounter++;
+
             boardLabels[i].setOpaque(true);
             boardLabels[i].setBorder(BorderFactory.createLineBorder(borderColor));
             boardLabels[i].setBackground(squareColor);
