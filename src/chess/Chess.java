@@ -149,7 +149,14 @@ public class Chess extends JFrame {
         }
     }
 
-
+    private void removePiece(int row, int col) {
+        for (JLabel square : boardLabels) {
+            if (square.getName().equals(Integer.toString(row)+Integer.toString(col))) {
+                square.setIcon(null);
+            }
+        }
+        pieceArrayList.removeIf(piece -> row == piece.row && col == piece.col);
+    }
 
     private class MouseHandler extends MouseAdapter {
 
