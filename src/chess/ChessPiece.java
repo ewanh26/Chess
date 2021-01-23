@@ -1,20 +1,20 @@
 package chess;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class ChessPiece {
 
-    protected String pos;
+    protected int row, col;
     protected PieceType type;
     protected Color color;
     protected Image img;
 
-    public ChessPiece(String pos, PieceType type, Color color) {
-        this.pos = pos;
+    public ChessPiece(int row, int col,PieceType type, Color color) {
+        this.row = row;
+        this.col = col;
         this.type = type;
         this.color = color;
     }
-
-    abstract public String[] possibleMoves();
 
 }

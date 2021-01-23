@@ -12,8 +12,8 @@ public class Bishop extends ChessPiece {
     protected Color color;
     protected Image img;
 
-    public Bishop(String pos, PieceType type, Color color) {
-        super(pos, type, color);
+    public Bishop(int row, int col, PieceType type, Color color) {
+        super(row, col, type, color);
 
         try {
             if (color == Color.BLACK) {
@@ -27,7 +27,9 @@ public class Bishop extends ChessPiece {
     }
 
     public String[] possibleMoves() {
-        //Diagonals
-        return new String[0];
+        char[] splitPos = { pos.charAt(0), pos.charAt(1) };
+        String[] possibleMoves;
+
+        return null;
     }
 }

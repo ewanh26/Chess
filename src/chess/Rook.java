@@ -13,8 +13,8 @@ public class Rook extends ChessPiece {
     protected Color color;
     protected Image img;
 
-    public Rook(String pos, PieceType type, Color color) {
-        super(pos, type, color);
+    public Rook(int row, int col, PieceType type, Color color) {
+        super(row, col, type, color);
 
         try {
             if (color == Color.BLACK) {
@@ -27,7 +27,4 @@ public class Rook extends ChessPiece {
         }
     }
 
-    public String[] possibleMoves() {
-        return new String[0];
-    }
 }

@@ -3,6 +3,8 @@ package chess;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.*;
 
@@ -17,7 +19,8 @@ public class Chess extends JFrame {
     private Color beforeHoverColor;
     private Color borderColor = Color.BLACK;
 
-    LinkedList<ChessPiece> pieceLinkedList = new LinkedList<>();
+    public ArrayList<ChessPiece> pieceArrayList = new ArrayList<>();
+    public ChessPiece[][] boardArray2D = new ChessPiece[8][8];
 
     public Chess(String title) {
         super(title);
@@ -35,29 +38,29 @@ public class Chess extends JFrame {
     private void startApp(String[] args) {
         initialize();
 
-        for (int i = 1; i <= 8; i++) {
-            addPiece(new Pawn("G" + Integer.toString(i), PieceType.Pawn, Color.WHITE));
-            addPiece(new Pawn("B" + Integer.toString(i), PieceType.Pawn, Color.BLACK));
+        for (int i = 0; i < 8; i++) {
+            addPiece(new Pawn(6, i, PieceType.Pawn, Color.WHITE));
+            addPiece(new Pawn(1, i, PieceType.Pawn, Color.BLACK));
             switch (i) {
-                case 1, 8 -> {
-                    addPiece(new Rook("H" + Integer.toString(i), PieceType.Rook, Color.WHITE));
-                    addPiece(new Rook("A" + Integer.toString(i), PieceType.Rook, Color.BLACK));
+                case 0, 7 -> {
+                    addPiece(new Rook(7, i, PieceType.Rook, Color.WHITE));
+                    addPiece(new Rook(0, i, PieceType.Rook, Color.BLACK));
                 }
-                case 2, 7 -> {
-                    addPiece(new Knight("H" + Integer.toString(i), PieceType.Knight, Color.WHITE));
-                    addPiece(new Knight("A" + Integer.toString(i), PieceType.Knight, Color.BLACK));
+                case 1, 6 -> {
+                    addPiece(new Knight(7, i, PieceType.Knight, Color.WHITE));
+                    addPiece(new Knight(0, i, PieceType.Knight, Color.BLACK));
                 }
-                case 3, 6 -> {
-                    addPiece(new Bishop("H" + Integer.toString(i), PieceType.Bishop, Color.WHITE));
-                    addPiece(new Bishop("A" + Integer.toString(i), PieceType.Bishop, Color.BLACK));
+                case 2, 5 -> {
+                    addPiece(new Bishop(7, i, PieceType.Bishop, Color.WHITE));
+                    addPiece(new Bishop(0, i, PieceType.Bishop, Color.BLACK));
+                }
+                case 3 -> {
+                    addPiece(new Queen(7, i, PieceType.Queen, Color.WHITE));
+                    addPiece(new Queen(0, i, PieceType.Queen, Color.BLACK));
                 }
                 case 4 -> {
-                    addPiece(new Queen("H" + Integer.toString(i), PieceType.Queen, Color.WHITE));
-                    addPiece(new Queen("A" + Integer.toString(i), PieceType.Queen, Color.BLACK));
-                }
-                case 5 -> {
-                    addPiece(new King("H" + Integer.toString(i), PieceType.King, Color.WHITE));
-                    addPiece(new King("A" + Integer.toString(i), PieceType.King, Color.BLACK));
+                    addPiece(new King(7, i, PieceType.King, Color.WHITE));
+                    addPiece(new King(0, i, PieceType.King, Color.BLACK));
                 }
             }
         }
@@ -71,7 +74,7 @@ public class Chess extends JFrame {
         boardLabels = new JLabel[gridW * gridH];
         MouseHandler mouseHandler = new MouseHandler();
 
-        int labelASCII_StartLetter = 65;
+        int start = 0;
         boolean checker = false;
         Color squareColor;
         int columnCounter = 0;
@@ -85,16 +88,16 @@ public class Chess extends JFrame {
 
             columnCounter++;
             boardLabels[i] = new JLabel();
-            boardLabels[i].setName(Character.toString((char)labelASCII_StartLetter) + String.valueOf(columnCounter));
+            boardLabels[i].setName(Integer.toString(start) + String.valueOf(columnCounter-1));
             boardLabels[i].setOpaque(true);
-            boardLabels[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            boardLabels[i].setBorder(BorderFactory.createLineBorder(borderColor));
             boardLabels[i].setBackground(squareColor);
             boardLabels[i].setPreferredSize(new Dimension(squareSize, squareSize));
             boardLabels[i].addMouseListener(mouseHandler);
             getContentPane().add(boardLabels[i]);
             if (columnCounter == gridW) {
                 checker = !checker;
-                labelASCII_StartLetter++;
+                start++;
                 columnCounter = 0;
             }
         }
@@ -105,9 +108,10 @@ public class Chess extends JFrame {
     }
 
     private void addPiece(ChessPiece piece) {
-        pieceLinkedList.add(piece);
+        boardArray2D[piece.row][piece.col] = piece;
+        pieceArrayList.add(piece);
         for (JLabel square : boardLabels) {
-            if (piece.pos.equals(square.getName())) {
+            if (square.getName().equals(Integer.toString(piece.row)+Integer.toString(piece.col))) {
                 switch (piece.type) {
                     case Pawn -> {
                         Pawn p = (Pawn) piece;
@@ -144,12 +148,15 @@ public class Chess extends JFrame {
         }
     }
 
+
+
     private class MouseHandler extends MouseAdapter {
+
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
-            System.out.println("Clicked: " + label.getName());
-            System.out.println(label.getIcon());
+            System.out.println(label.getName());
+            //System.out.println(label.getIcon());
         }
 
         @Override

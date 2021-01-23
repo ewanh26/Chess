@@ -2,19 +2,19 @@ package chess;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
 
-    protected String pos;
+    protected int x, y;
     protected PieceType type;
     protected Color color;
     protected Image img;
 
-    public Pawn(String pos, PieceType type, Color color) {
-        super(pos, type, color);
+    public Pawn(int row, int col, PieceType type, Color color) {
+        super(row, col, type, color);
 
         try {
             if (color == Color.BLACK) {
@@ -27,19 +27,25 @@ public class Pawn extends ChessPiece {
         }
     }
 
-    public String[] possibleMoves() {
+    /*public ArrayList<String> possibleMoves() {
         char[] splitPos = { pos.charAt(0), pos.charAt(1) };
         String[] possibleMoves;
+        int direction;
 
         if (color == Color.BLACK) {
-            int ASCII_CharPos = (int) splitPos[0];
-            possibleMoves = new String[]{ Character.toString((char) ASCII_CharPos + 1) + splitPos[1] };
+            direction = 1;
         } else {
-            int ASCII_CharPos = (int) splitPos[0];
-            possibleMoves = new String[]{ Character.toString((char) ASCII_CharPos - 1) + splitPos[1] };
+            direction = -1;
+        }
+
+        int ASCII_CharPos = (int) splitPos[0];
+        possibleMoves = new String[]{ Character.toString((char) ASCII_CharPos + direction) + splitPos[1] };
+
+        if (splitPos[0] == 'B' || splitPos[0] == 'G') {
+            possibleMoves.
         }
 
         return possibleMoves;
-    }
+    }*/
 
 }
