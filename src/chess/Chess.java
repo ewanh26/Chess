@@ -11,13 +11,13 @@ import javax.swing.*;
 public class Chess extends JFrame {
 
     private JLabel[] boardLabels;
-    private int gridW = 8;
-    private int gridH = 8;
-    private int squareSize = 64;
+    private final int gridW = 8;
+    private final int gridH = 8;
+    private final int squareSize = 64;
 
-    private Color hoverColor = Color.decode("#DDCCFF");
+    private final Color hoverColor = Color.decode("#DDCCFF");
     private Color beforeHoverColor;
-    private Color borderColor = Color.BLACK;
+    private final Color borderColor = Color.BLACK;
 
     public ArrayList<ChessPiece> pieceArrayList = new ArrayList<>();
     public ChessPiece[][] boardArray2D = new ChessPiece[8][8];
@@ -164,7 +164,6 @@ public class Chess extends JFrame {
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
             System.out.println(label.getName());
-            //System.out.println(label.getIcon());
         }
 
         @Override
