@@ -108,42 +108,46 @@ public class Chess extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void addPiece(ChessPiece piece) {
+    public void addPiece(ChessPiece piece) {
         boardArray2D[piece.row][piece.col] = piece;
         pieceArrayList.add(piece);
         for (JLabel square : boardLabels) {
             if (square.getName().equals(Integer.toString(piece.row)+Integer.toString(piece.col))) {
-                switch (piece.type) {
-                    case Pawn -> {
-                        Pawn p = (Pawn) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
+                if (!piece.getClass().getName().equals("AvailableMove")) {
+                    switch (piece.type) {
+                        case Pawn -> {
+                            Pawn p = (Pawn) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
+                        case Rook -> {
+                            Rook p = (Rook) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
+                        case Knight -> {
+                            Knight p = (Knight) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
+                        case Bishop -> {
+                            Bishop p = (Bishop) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
+                        case Queen -> {
+                            Queen p = (Queen) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
+                        case King -> {
+                            King p = (King) piece;
+                            ImageIcon icon = new ImageIcon(p.img);
+                            square.setIcon(icon);
+                        }
                     }
-                    case Rook -> {
-                        Rook p = (Rook) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
-                    }
-                    case Knight -> {
-                        Knight p = (Knight) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
-                    }
-                    case Bishop -> {
-                        Bishop p = (Bishop) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
-                    }
-                    case Queen -> {
-                        Queen p = (Queen) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
-                    }
-                    case King -> {
-                        King p = (King) piece;
-                        ImageIcon icon = new ImageIcon(p.img);
-                        square.setIcon(icon);
-                    }
+                } else {
+                    square.setBackground(Color.CYAN);
                 }
             }
         }

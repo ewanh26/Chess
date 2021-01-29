@@ -1,7 +1,6 @@
 package chess;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class ChessPiece {
 
@@ -16,5 +15,7 @@ public abstract class ChessPiece {
         this.type = type;
         this.color = color;
     }
+
+    protected ChessPiece(PieceType type){};
 
 }
