@@ -167,7 +167,9 @@ public class Chess extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
-            System.out.println(label.getName());
+            //System.out.println((char) label.getName().charAt(1)); //ASCII!!!!! TODO: FIX THIS.
+            ChessPiece pieceOnLabel = boardArray2D[(char) label.getName().charAt(0)][(char) label.getName().charAt(1)];
+            PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color, pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
         }
 
         @Override
