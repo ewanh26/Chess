@@ -3,5 +3,7 @@ package chess;
 import java.awt.*;
 
 public class AvailableMove extends ChessPiece {
-    public AvailableMove(PieceType type){super(type);};
+    PieceType type;
+    PieceType self;
+    public AvailableMove(PieceType type, PieceType self){super(type, self);};
 }

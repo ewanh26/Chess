@@ -7,6 +7,7 @@ public enum PieceType {
     Knight,
     Bishop,
     Queen,
-    King
+    King,
+    AvailableMove
 
 }

@@ -113,7 +113,7 @@ public class Chess extends JFrame {
         pieceArrayList.add(piece);
         for (JLabel square : boardLabels) {
             if (square.getName().equals(Integer.toString(piece.row)+Integer.toString(piece.col))) {
-                if (!piece.getClass().getName().equals("AvailableMove")) {
+                if (!piece.getClass().getName().equals("chess.AvailableMove")) {
                     switch (piece.type) {
                         case Pawn -> {
                             Pawn p = (Pawn) piece;
@@ -168,8 +168,15 @@ public class Chess extends JFrame {
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
             //System.out.println((char) label.getName().charAt(1)); //ASCII!!!!! TODO: FIX THIS.
-            ChessPiece pieceOnLabel = boardArray2D[(char) label.getName().charAt(0)][(char) label.getName().charAt(1)];
-            PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color, pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
+            ChessPiece pieceOnLabel = boardArray2D[Integer.parseInt(String.valueOf(label.getName().charAt(0)))][Integer.parseInt(String.valueOf(label.getName().charAt(1)))];
+            try {
+                if (pieceOnLabel != null || pieceOnLabel.type != null) {
+                    System.out.println(pieceOnLabel.getClass().getName());
+                    boardArray2D = PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color, pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
+                }
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
+            }
         }
 
         @Override
