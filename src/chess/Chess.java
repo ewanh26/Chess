@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.*;
@@ -33,6 +34,11 @@ public class Chess extends JFrame {
                 new Chess("Chess").startApp(args);
             }
         });
+
+        /*Runnable task = () -> {
+            new Chess("Chess").startApp(args);
+        };
+        SwingUtilities.invokeLater(task);*/
     }
 
     private void startApp(String[] args) {
@@ -162,6 +168,10 @@ public class Chess extends JFrame {
         pieceArrayList.removeIf(piece -> row == piece.row && col == piece.col);
     }
 
+    private void clearMoves() {
+        PossibleMoves.clearMoves(boardArray2D);
+    }
+
     private class MouseHandler extends MouseAdapter {
 
         @Override
@@ -189,6 +199,7 @@ public class Chess extends JFrame {
             JLabel label = (JLabel) e.getSource();
             label.setBorder(BorderFactory.createLineBorder(borderColor));
         }
+
     }
 
 }
