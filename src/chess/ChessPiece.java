@@ -16,6 +16,6 @@ public abstract class ChessPiece {
         this.color = color;
     }
 
-    protected ChessPiece(PieceType type, PieceType self){};
+    protected ChessPiece(){};
 
 }

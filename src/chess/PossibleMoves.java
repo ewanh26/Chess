@@ -1,5 +1,7 @@
 package chess;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,11 +13,23 @@ public class PossibleMoves {
         ChessPiece[][] newArray2D = new ChessPiece[8][8];
         newArray2D = array2D;
 
-        switch (type) {
-            case Pawn -> {
-                newArray2D[row + direction][col] = new AvailableMove(PieceType.AvailableMove, PieceType.Pawn);
-                if (row == 1 || row == 6) {
-                    newArray2D[row + direction*2][col] = new AvailableMove(PieceType.AvailableMove, PieceType.Pawn);
+        if (type != null) {
+            switch (type) {
+                case Pawn -> {
+                    newArray2D[row + direction][col] = new AvailableMove();
+                    if (row == 1 || row == 6) {
+                        newArray2D[row + direction * 2][col] = new AvailableMove();
+                    }
+                }
+            }
+        }
+    }
+
+    public static void clearMoves(ChessPiece[][] array2D) {
+        for (ChessPiece[] row : array2D) {
+            for (ChessPiece piece : row) {
+                if (piece instanceof AvailableMove) {
+                    array2D[piece.row][piece.col] = null;
                 }
             }
         }

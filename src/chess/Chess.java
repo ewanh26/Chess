@@ -113,7 +113,7 @@ public class Chess extends JFrame {
         pieceArrayList.add(piece);
         for (JLabel square : boardLabels) {
             if (square.getName().equals(Integer.toString(piece.row)+Integer.toString(piece.col))) {
-                if (!piece.getClass().getName().equals("chess.AvailableMove")) {
+                if (!(piece instanceof AvailableMove)) {
                     switch (piece.type) {
                         case Pawn -> {
                             Pawn p = (Pawn) piece;
@@ -167,11 +167,14 @@ public class Chess extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
-            ChessPiece pieceOnLabel = boardArray2D //TODO: MAYBE ADD A NO PIECE CLASS FOR EMPTY SPACES?
+            ChessPiece pieceOnLabel = boardArray2D
                     [Integer.parseInt(String.valueOf(label.getName().charAt(0)))]
                     [Integer.parseInt(String.valueOf(label.getName().charAt(1)))];
             System.out.println(pieceOnLabel);
-            PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color,pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
+            if (pieceOnLabel != null) {
+                if (pieceOnLabel.type != PieceType.AvailableMove)
+                    PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color, pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
+            }
         }
 
         @Override

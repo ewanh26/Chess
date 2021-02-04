@@ -1,5 +1,6 @@
 package chess;
 
+@Utility
 public enum PieceType {
 
     Pawn,
