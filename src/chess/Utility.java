@@ -1,3 +1,1 @@
-package chess;
-
-public @interface Utility { }
+package chess;public@interface Utility{}
