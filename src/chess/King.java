@@ -17,9 +17,9 @@ public class King extends ChessPiece {
 
         try {
             if (color == Color.BLACK) {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KingBlack.png"));
+                img = ImageIO.read(new File("src\\Images\\KingBlack.png"));
             } else {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KingWhite.png"));
+                img = ImageIO.read(new File("src\\Images\\KingWhite.png"));
             }
         } catch (IOException e) {
             e.printStackTrace();

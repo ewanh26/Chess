@@ -17,9 +17,9 @@ public class Queen extends ChessPiece {
 
         try {
             if (color == Color.BLACK) {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\QueenBlack.png"));
+                img = ImageIO.read(new File("src\\Images\\QueenBlack.png"));
             } else {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\QueenWhite.png"));
+                img = ImageIO.read(new File("src\\Images\\QueenWhite.png"));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,7 +2,6 @@ package chess;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,9 +17,9 @@ public class Knight extends ChessPiece {
 
         try {
             if (color == Color.BLACK) {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KnightBlack.png"));
+                img = ImageIO.read(new File("src\\Images\\KnightBlack.png"));
             } else {
-                img = ImageIO.read(new File("C:\\Users\\user\\Documents\\Chess\\src\\Images\\KnightWhite.png"));
+                img = ImageIO.read(new File("src\\Images\\KnightWhite.png"));
             }
         } catch (IOException e) {
             e.printStackTrace();
