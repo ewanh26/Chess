@@ -9,7 +9,7 @@ public abstract class ChessPiece {
     protected Color color;
     protected Image img;
 
-    public ChessPiece(int row, int col,PieceType type, Color color) {
+    public ChessPiece(int row, int col, PieceType type, Color color) {
         this.row = row;
         this.col = col;
         this.type = type;

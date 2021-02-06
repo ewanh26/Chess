@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class Chess extends JFrame {
 
-    private JLabel[] boardLabels;
+    private static JLabel[] boardLabels;
     private final int gridW = 8;
     private final int gridH = 8;
     private final int squareSize = 64;
@@ -20,8 +20,8 @@ public class Chess extends JFrame {
     private Color beforeHoverColor;
     private final Color borderColor = Color.BLACK;
 
-    public ArrayList<ChessPiece> pieceArrayList = new ArrayList<>();
-    public ChessPiece[][] boardArray2D = new ChessPiece[8][8];
+    public static ArrayList<ChessPiece> pieceArrayList = new ArrayList<>();
+    public static ChessPiece[][] boardArray2D = new ChessPiece[8][8];
 
     public Chess(String title) {
         super(title);
@@ -70,6 +70,7 @@ public class Chess extends JFrame {
                 }
             }
         }
+
     }
 
     private void initialize() {
@@ -114,7 +115,7 @@ public class Chess extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void addPiece(ChessPiece piece) {
+    public static void addPiece(ChessPiece piece) {
         boardArray2D[piece.row][piece.col] = piece;
         pieceArrayList.add(piece);
         for (JLabel square : boardLabels) {
@@ -166,6 +167,7 @@ public class Chess extends JFrame {
             }
         }
         pieceArrayList.removeIf(piece -> row == piece.row && col == piece.col);
+        boardArray2D[row][col] = null;
     }
 
     private void clearMoves() {
@@ -174,6 +176,8 @@ public class Chess extends JFrame {
 
     private class MouseHandler extends MouseAdapter {
 
+        ChessPiece selectedPiece;
+
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel label = (JLabel) e.getSource();
@@ -181,9 +185,20 @@ public class Chess extends JFrame {
                     [Integer.parseInt(String.valueOf(label.getName().charAt(0)))]
                     [Integer.parseInt(String.valueOf(label.getName().charAt(1)))];
             System.out.println(pieceOnLabel);
+
             if (pieceOnLabel != null) {
-                if (pieceOnLabel.type != PieceType.AvailableMove)
-                    PossibleMoves.getMoves(pieceOnLabel.type, pieceOnLabel.color, pieceOnLabel.row, pieceOnLabel.col, boardArray2D);
+                if (!(pieceOnLabel instanceof AvailableMove)) {
+                    clearMoves();
+                    selectedPiece = pieceOnLabel;
+                    PossibleMoves.getMoves(selectedPiece.type, selectedPiece.color, selectedPiece.row, selectedPiece.col, boardArray2D);
+                } else {
+                    selectedPiece.row = pieceOnLabel.row;
+                    selectedPiece.col = pieceOnLabel.col;
+                    addPiece(pieceOnLabel);
+                }
+                System.out.println("S:" + selectedPiece);
+            } else {
+                System.out.println("INVALID");
             }
         }
 
